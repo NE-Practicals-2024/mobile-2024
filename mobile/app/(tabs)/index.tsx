@@ -2,24 +2,30 @@ import PostComponent from '@/components/PostComponent';
 import { fetchPosts } from '@/services';
 import { IPost } from '@/types';
 import React, { useEffect, useState } from 'react';
-import { FlatList, Image, RefreshControl, SafeAreaView, ScrollView, Text, View } from 'react-native';
+import { FlatList, Image, RefreshControl, SafeAreaView, Text, View } from 'react-native';
 import { useToast } from 'react-native-toast-notifications';
 
 export default function Home() {
-
-    const [loading, setLoading] = useState<boolean>(false)
-    const [posts, setPosts] = useState<IPost[]>([])
-    const [page, setPage] = useState<number>(1)
-    const [limit, setLimit] = useState<number>(10)
-    const toast = useToast()
+    const [loading, setLoading] = useState<boolean>(false);
+    const [posts, setPosts] = useState<IPost[]>([]);
+    const [page, setPage] = useState<number>(1);
+    const [limit] = useState<number>(10);
+    const toast = useToast();
 
     const getPosts = async () => {
-        await fetchPosts({ setLoading, setPosts, toast })
-    }
+        setLoading(true);
+        await fetchPosts({ toast, setPosts, setLoading });
+    };
 
     useEffect(() => {
-        getPosts()
-    }, [])
+        getPosts();
+    }, []);
+
+    const handleLoadMore = () => {
+        if (page * limit < posts.length) {
+            setPage(prevPage => prevPage + 1);
+        }
+    };
 
     const displayedPosts = posts.slice(0, page * limit);
 
@@ -27,7 +33,7 @@ export default function Home() {
         <SafeAreaView className='w-full flex flex-1 flex-col bg-white pt-10 px-3'>
             <View className='w-full flex-row items-center justify-between'>
                 <View className='flex flex-row items-center'>
-                    <Image className='w-14 h-10' source={require("./../../assets/images/logo.png")} />
+                    <Image className='w-10 h-10 rounded-full' source={require("./../../assets/images/logo.png")} />
                 </View>
                 <Image className='w-10 h-10 rounded-full' source={{ uri: "https://picsum.photos/250/250" }} />
             </View>
@@ -48,7 +54,8 @@ export default function Home() {
                     renderItem={({ item }) => (
                         <PostComponent post={item} />
                     )}
-                    onEndReachedThreshold={0.2}
+                    onEndReached={handleLoadMore}
+                    onEndReachedThreshold={1}
                 />
             </View>
         </SafeAreaView>
