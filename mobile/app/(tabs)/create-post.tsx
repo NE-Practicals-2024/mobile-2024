@@ -6,7 +6,7 @@ import { Picker } from '@react-native-picker/picker';
 import { Stack, router } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { Controller, Resolver, SubmitHandler, useForm } from 'react-hook-form';
-import { ActivityIndicator, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Image, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useToast } from 'react-native-toast-notifications';
 import * as yup from 'yup';
 
@@ -50,13 +50,19 @@ export default function CreatePost() {
     }, [])
 
     return (
-        <SafeAreaView className='w-full flex-1 pt-24 bg-white'>
-            <TouchableOpacity onPress={() => router.back()} className='absolute top-14 left-4'>
+        <SafeAreaView className='w-full flex-1 pt-12 bg-white'>
+             <View className='w-full flex-row items-center justify-between px-4'>
+                <View className='flex flex-row items-center'>
+                    <Image className='w-10 h-10 rounded-full' source={require("./../../assets/images/logo.png")} />
+                </View>
+                <Image className='w-10 h-10 rounded-full' source={{ uri: "https://picsum.photos/250/250" }} />
+            </View>
+            <TouchableOpacity onPress={() => router.back()} className='mt-14 left-4'>
                 <AntDesign name="arrowleft" size={24} color="black" />
             </TouchableOpacity>
             <Stack.Screen options={{ headerShown: false }} />
             <ScrollView className='w-full p-4'>
-                <Text className='text-xl font-bold'>Create Post</Text>
+                <Text className='text-xl font-bold'>Create A New Post</Text>
                 <View className='my-2 w-full'>
                     <View className='w-full flex flex-col my-2'>
                         <Text className='mb-1'>Title</Text>

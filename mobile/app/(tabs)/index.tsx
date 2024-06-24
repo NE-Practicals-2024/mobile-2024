@@ -30,8 +30,8 @@ export default function Home() {
     const displayedPosts = posts.slice(0, page * limit);
 
     return (
-        <SafeAreaView className='w-full flex flex-1 flex-col bg-white pt-10 px-3'>
-            <View className='w-full flex-row items-center justify-between'>
+        <SafeAreaView className='w-full flex flex-1 flex-col bg-white pt-12 px-3'>
+            <View className='w-full flex-row items-center justify-between px-1'>
                 <View className='flex flex-row items-center'>
                     <Image className='w-10 h-10 rounded-full' source={require("./../../assets/images/logo.png")} />
                 </View>
