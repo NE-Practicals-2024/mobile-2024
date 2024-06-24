@@ -27,32 +27,30 @@ export default function Home() {
         <SafeAreaView className='w-full flex flex-1 flex-col bg-white pt-10 px-3'>
             <View className='w-full flex-row items-center justify-between'>
                 <View className='flex flex-row items-center'>
-                    <Image className='w-10 h-10 rounded-full' source={{ uri: "https://picsum.photos/250/250" }} />
+                    <Image className='w-14 h-10' source={require("./../../assets/images/logo.png")} />
                 </View>
                 <Image className='w-10 h-10 rounded-full' source={{ uri: "https://picsum.photos/250/250" }} />
             </View>
-            <ScrollView className='w-full flex flex-col'>
-                <Text className='text-lg font-semibold my-6'>Hi there 👋,</Text>
-                <View className='w-full'>
-                    <FlatList
-                        refreshControl={
-                            <RefreshControl refreshing={loading} onRefresh={getPosts} />
-                        }
-                        scrollEnabled={true}
-                        data={displayedPosts}
-                        ListEmptyComponent={() => (
-                            <View className='h-full justify-center items-center rounded-lg'>
-                                <Text className='text-lg text-gray-700 pt-3 '>No posts available</Text>
-                            </View>
-                        )}
-                        keyExtractor={(item) => item.id.toString()}
-                        renderItem={({ item }) => (
-                            <PostComponent post={item} />
-                        )}
-                        onEndReachedThreshold={0.2}
-                    />
-                </View>
-            </ScrollView>
+            <Text className='text-lg font-semibold my-6'>Hi there 👋,</Text>
+            <View className='w-full'>
+                <FlatList
+                    refreshControl={
+                        <RefreshControl refreshing={loading} onRefresh={getPosts} />
+                    }
+                    scrollEnabled={true}
+                    data={displayedPosts}
+                    ListEmptyComponent={() => (
+                        <View className='h-full justify-center items-center rounded-lg'>
+                            <Text className='text-lg text-gray-700 pt-3 '>No posts available</Text>
+                        </View>
+                    )}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={({ item }) => (
+                        <PostComponent post={item} />
+                    )}
+                    onEndReachedThreshold={0.2}
+                />
+            </View>
         </SafeAreaView>
     );
 }

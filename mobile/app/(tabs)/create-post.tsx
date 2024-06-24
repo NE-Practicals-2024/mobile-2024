@@ -79,10 +79,12 @@ export default function CreatePost() {
                         <Text className=' text-red-500'>{errors?.title?.message}</Text>
                     </View>
                     <View className='w-full flex flex-col my-2'>
-                        <Text className='mb-1'>User ID</Text>
+                        <Text className='mb-1'>User</Text>
                         <Picker
-                            selectedValue={getValues("userId")}
-                            onValueChange={(itemValue) => setValue("userId", itemValue)}
+                            selectedValue={
+                                getValues("userId") || ""
+                            }
+                            onValueChange={(itemValue) => setValue("userId", parseInt(itemValue.toString()))}
                         >
                             {
                                 users.map((user, index) => (

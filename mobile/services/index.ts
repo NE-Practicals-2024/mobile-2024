@@ -1,5 +1,6 @@
 import api from "@/lib/axios.config"
 import { IComment, ICreatePostData, IPost, IUser } from "@/types"
+import { router } from "expo-router"
 import React from "react"
 import { UseFormReset } from "react-hook-form"
 import { ToastType } from "react-native-toast-notifications"
@@ -19,7 +20,6 @@ export const createPost = async ({
         setLoading(true)
         const url = "/posts"
         const response = await api.post(url, data)
-        console.log(response);
         toast.show("Post created successfully", { type: "success", placement: "top" })
         setLoading(false)
         reset()
@@ -48,7 +48,6 @@ export const fetchPosts = async ({
         setLoading(true)
         const url = "/posts"
         const response = await api.get(url)
-        console.log(response.data);
         setPosts(response.data)
     } catch (error) {
         console.log(error);
@@ -133,12 +132,14 @@ export const deletePost = async ({
 }) => {
     try {
         setLoading(true)
+        console.log('DELETE POST', id);
         const url = `/posts/${id}`
         await api.delete(url)
         toast.show("Post deleted successfully", {
             type: "success",
             placement: "top"
         })
+        router.navigate("/")
     } catch (error) {
         console.log(error);
         return toast.show("Error deleting post", {

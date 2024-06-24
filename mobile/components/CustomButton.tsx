@@ -24,7 +24,7 @@ const CustomButton = ({ title, handlePress, variant = "primary", containerStyles
                 (<ActivityIndicator
                     size={"small"}
                     animating={isLoading}
-                    color={variant === "primary" ? "white" : "#1967D2"}
+                    color={variant === "primary" ? "white" : "#FFA500"}
 
                 />)
             }

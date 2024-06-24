@@ -13,7 +13,7 @@ module.exports = {
         rubikbold: ['RubikBold', 'sans-serif'],
       },
       colors:{
-        "primary":"#FFA500"
+        "primary":"#1967D2"
       }
     },
   },

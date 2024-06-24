@@ -13,7 +13,7 @@ const PostComponent: React.FC<{
             <CustomButton
                 title='Read More'
                 handlePress={() => router.navigate(`/post/${post.id}`)}
-                containerStyles='mb-3'
+                containerStyles='mb-3 bg-[#1967D2]'
             />
         </View>
     );
