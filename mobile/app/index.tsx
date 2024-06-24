@@ -21,7 +21,7 @@ const Onboarding = () => {
                         resizeMode='contain'
                         className='w-[240px] h-[240px]'
                     />
-                    <Text className='text-xl font-bold font-rubik'>Welcome to PostMaster</Text>
+                    <Text className='text-xl font-bold font-rubik'>Welcome to PostStack</Text>
                     <View className='w-full mt-8'>
                         <CustomButton
                             title='Go Home'

@@ -3,7 +3,7 @@ import { IComment, IPost } from '@/types';
 import { AntDesign } from '@expo/vector-icons';
 import { Stack, router, useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View, FlatList } from 'react-native';
+import { FlatList, Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { useToast } from 'react-native-toast-notifications';
 
 export default function PostScreen() {
@@ -52,22 +52,31 @@ export default function PostScreen() {
             </View>
             <Text className='text-lg my-4 font-semibold'>{post?.title}</Text>
             <Text className='mb-4 italic text-slate-700'>Written By: John Doe</Text>
-            <Image className='w-full h-44 rounded-lg' source={{ uri: "https://picsum.photos/500/500" }} />
-            <Text className='my-4 text-[15px]'>{post?.body}</Text>
-            <Text className='my-3 font-semibold'>Comments</Text>
-            <FlatList
-                data={comments.slice(0, page * limit)}
-                renderItem={renderComment}
-                scrollEnabled
-                keyExtractor={(item, index) => index.toString()}
-                onEndReached={handleLoadMore}
-                onEndReachedThreshold={0.1}
-                ListEmptyComponent={() => (
-                    <View className='items-center py-3'>
-                        <Text className='text-gray-700'>No comments available</Text>
-                    </View>
-                )}
-            />
+            <ScrollView>
+                <Image className='w-full h-44 rounded-lg' source={{ uri: "https://picsum.photos/500/500" }} />
+                <Text className='my-4 text-[15px]'>{post?.body}</Text>
+                <Text className='my-3 font-semibold'>Comments</Text>
+                <FlatList
+                    data={comments.slice(0, page * limit)}
+                    renderItem={renderComment}
+                    scrollEnabled={false}
+                    keyExtractor={(item) => item.id.toString()}
+                    onEndReached={handleLoadMore}
+                    onEndReachedThreshold={0.1}
+                    horizontal={false}
+                    ListEmptyComponent={() => (
+                        <View className='items-center py-3'>
+                            <Text className='text-gray-700'>No comments available</Text>
+                        </View>
+                    )}
+                    ListHeaderComponent={() => (
+                        <></>
+                    )}
+                    ListFooterComponent={() => (
+                        <></>
+                    )}
+                />
+            </ScrollView>
         </SafeAreaView>
     );
 }

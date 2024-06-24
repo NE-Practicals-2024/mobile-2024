@@ -9,20 +9,23 @@ export const createPost = async ({
     setLoading,
     data,
     toast,
-    reset
+    reset,
+    setSelectedUser
 }: {
     setLoading: React.Dispatch<React.SetStateAction<boolean>>,
     data: ICreatePostData,
     toast: ToastType,
-    reset: UseFormReset<ICreatePostData>
+    reset: UseFormReset<ICreatePostData>,
+    setSelectedUser: React.Dispatch<React.SetStateAction<number | null>>
 }) => {
     try {
         setLoading(true)
         const url = "/posts"
-        const response = await api.post(url, data)
+        await api.post(url, data)
         toast.show("Post created successfully", { type: "success", placement: "top" })
         setLoading(false)
         reset()
+        setSelectedUser(null)
     } catch (error: any) {
         console.log(error);
         return toast.show("Error creating post", {

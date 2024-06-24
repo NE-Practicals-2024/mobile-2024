@@ -16,6 +16,7 @@ export default function CreatePost() {
     const [loading, setLoading] = useState<boolean>(false)
     const [usersLoading, setUsersLoading] = useState<boolean>(false)
     const [users, setUsers] = useState<IUser[]>([])
+    const [selectedUser, setSelectedUser] = useState<number | null>(null)
 
     const toast = useToast()
 
@@ -30,7 +31,6 @@ export default function CreatePost() {
         handleSubmit,
         reset,
         setValue,
-        getValues,
         formState: { errors },
     } = useForm<ICreatePostData>({
         resolver: yupResolver(RegisterPostSchema) as Resolver<ICreatePostData, any>,
@@ -38,7 +38,7 @@ export default function CreatePost() {
     })
 
     const onSubmit: SubmitHandler<ICreatePostData> = async (data) => {
-        await createPost({ toast, setLoading, data, reset })
+        await createPost({ toast, setLoading, data, reset ,setSelectedUser})
     }
 
     const getUsers = async () => {
@@ -51,7 +51,7 @@ export default function CreatePost() {
 
     return (
         <SafeAreaView className='w-full flex-1 pt-12 bg-white'>
-             <View className='w-full flex-row items-center justify-between px-4'>
+            <View className='w-full flex-row items-center justify-between px-4'>
                 <View className='flex flex-row items-center'>
                     <Image className='w-10 h-10 rounded-full' source={require("./../../assets/images/logo.png")} />
                 </View>
@@ -86,18 +86,25 @@ export default function CreatePost() {
                     </View>
                     <View className='w-full flex flex-col my-2'>
                         <Text className='mb-1'>User</Text>
-                        <Picker
-                            selectedValue={
-                                getValues("userId") || ""
-                            }
-                            onValueChange={(itemValue) => setValue("userId", parseInt(itemValue.toString()))}
-                        >
-                            {
-                                users.map((user, index) => (
-                                    <Picker.Item key={index} label={user.name} value={user.id} />
-                                ))
-                            }
-                        </Picker>
+                        <View className='w-full rounded-lg border border-slate-400'>
+                            <Picker
+
+                                style={{ height: 50, width: '100%' }}
+                                selectedValue={selectedUser}
+                                onValueChange={(itemValue, itemIndex) => {
+                                    setValue('userId', itemValue as number)
+                                    setSelectedUser(itemValue as number)
+                                }}
+                                className='border w-full p-2 rounded-lg border-slate-400'
+                            >
+                                <Picker.Item label="Select a user" value={null} />
+                                {
+                                    users.map((user) => (
+                                        <Picker.Item key={user.id} label={user.name} value={user.id} />
+                                    ))
+                                }
+                            </Picker>
+                        </View>
                         <Text className=' text-red-500'>{errors?.userId?.message}</Text>
                     </View>
                     <View className='w-full flex flex-col my-2'>

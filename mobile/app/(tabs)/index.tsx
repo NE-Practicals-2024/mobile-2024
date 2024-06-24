@@ -1,6 +1,7 @@
 import PostComponent from '@/components/PostComponent';
 import { fetchPosts } from '@/services';
 import { IPost } from '@/types';
+import { Link } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { FlatList, Image, RefreshControl, SafeAreaView, Text, View } from 'react-native';
 import { useToast } from 'react-native-toast-notifications';
@@ -32,9 +33,9 @@ export default function Home() {
     return (
         <SafeAreaView className='w-full flex flex-1 flex-col bg-white pt-12 px-3'>
             <View className='w-full flex-row items-center justify-between px-1'>
-                <View className='flex flex-row items-center'>
+                <Link href={"/"} className='flex flex-row items-center'>
                     <Image className='w-10 h-10 rounded-full' source={require("./../../assets/images/logo.png")} />
-                </View>
+                </Link>
                 <Image className='w-10 h-10 rounded-full' source={{ uri: "https://picsum.photos/250/250" }} />
             </View>
             <Text className='text-lg font-semibold my-6'>Hi there 👋,</Text>
