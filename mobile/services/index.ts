@@ -121,6 +121,33 @@ export const fetchUsers = async ({
     }
 }
 
+export const getUser = async ({
+    id,
+    setLoading,
+    setUser,
+    toast
+}: {
+    id: number,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+    setUser: React.Dispatch<React.SetStateAction<IUser | undefined>>,
+    toast: ToastType
+}) => {
+    try {
+        setLoading(true)
+        const url = `/users/${id}`
+        const response = await api.get(url)
+        setUser(response.data)
+    } catch (error) {
+        console.log(error);
+        return toast.show("Error fetching user", {
+            type: "danger",
+            placement: "top"
+        })
+    } finally {
+        setLoading(false)
+    }
+}
+
 export const deletePost = async ({
     id,
     toast,
